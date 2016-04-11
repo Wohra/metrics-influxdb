@@ -50,6 +50,11 @@ public class CategoriesMetricMeasurementTransformer implements MetricMeasurement
 			toUseInMeasurement = new String[] {splitted[splitted.length - 1]};
 		}
 
-		return String.join(".", toUseInMeasurement);
+		String joined = (toUseInMeasurement.length > 0) ? toUseInMeasurement[0] : "";
+		for(int i = 1 ; i < toUseInMeasurement.length ; i++) {
+				joined = joined.concat(".").concat(toUseInMeasurement[i]);
+		}
+
+		return joined;
 	}
 }

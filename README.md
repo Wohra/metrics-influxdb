@@ -1,3 +1,5 @@
+This fork was made for the backward compatibility with Java 7
+
 <p xmlns:dct="http://purl.org/dc/terms/">
   <a rel="license"
      href="http://creativecommons.org/publicdomain/zero/1.0/">
@@ -12,9 +14,6 @@
   this work.
 </p>
 
-[![Build Status](https://travis-ci.org/davidB/metrics-influxdb.svg?branch=master)](https://travis-ci.org/davidB/metrics-influxdb)
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/davidB/metrics-influxdb/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-[![Download](https://api.bintray.com/packages/davidb/maven/metrics-influxdb/images/download.svg) ](https://bintray.com/davidb/maven/metrics-influxdb/_latestVersion)
 
 # The library provide :
 
@@ -33,17 +32,17 @@ The library provide a lighter client than influxdb-java to push only metrics.
 ### Released
 ```
  dependencies {
-	compile 'com.github.davidb:metrics-influxdb:0.8.2'
+        compile 'com.github.Wohra:metrics-influxdb:0.8.2'
  }
 ```
 
 ### Dev
 ```
  repositories {
-    maven { url "https://jitpack.io" }
+        maven { url "https://jitpack.io" }
  }
  dependencies {
-	compile 'com.github.davidb:metrics-influxdb:-SNAPSHOT'
+        compile 'com.github.Wohra:metrics-influxdb:-SNAPSHOT'
  }
 ```
 ## Usage :
@@ -69,7 +68,7 @@ With the previous simple configuration, all defaults will be used, mainly:
 But you are free of course to define all settings by yourself :
 
     final ScheduledReporter reporter = InfluxdbReporter.forRegistry(registry)
-        .protocol(InfluxdbProtocols.http("influxdb-server", 8086, "admin", "53CR3TP455W0RD", "metrics"))
+        .protocol(new HttpInfluxdbProtocol("influxdb-server", 8086, "admin", "53CR3TP455W0RD", "metrics"))
         .convertRatesTo(TimeUnit.SECONDS)
         .convertDurationsTo(TimeUnit.MILLISECONDS)
         .filter(MetricFilter.ALL)
@@ -88,7 +87,7 @@ And if you are still using v08 influxdb you can use the deprecated old syntax as
         .forRegistry(registry)
         .build(influxdb);
     ...
-    
+
 or the new one
 
     final InfluxdbHttp influxdb = new InfluxdbHttp("127.0.0.1", 8086, "dev", "u0", "u0PWD");
